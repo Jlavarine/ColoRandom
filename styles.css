@@ -1,0 +1,19 @@
+/* * {
+  border: red solid 3px;
+} */
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+section {
+border: blue solid 2px;
+}
+
+article {
+  border: green solid 2px;
+}
+
+div {
+  border: red solid 2px;
+}
