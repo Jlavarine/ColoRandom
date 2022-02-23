@@ -26,6 +26,7 @@ var colorBox2 = document.querySelector('.color-2');
 var colorBox3 = document.querySelector('.color-3');
 var colorBox4 = document.querySelector('.color-4');
 var colorBox5 = document.querySelector('.color-5');
+var colorBoxes = document.querySelectorAll('.color-format');
 
 
 var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -35,13 +36,13 @@ var savedPalettes = []; // will hold objects
 
 class Color {
   constructor() {
-  this.hex = generateHexCode();  //need random hex code, likely a parameter ;
+  this.hex = `#${generateHexCode()}`;  //need random hex code, likely a parameter ;
   this.locked = false;
 
 }
 }
 var colorExample = new Color();
-console.log(colorExample);
+// console.log(colorExample);
 
 var colorObject1 = new Color();
 var colorObject2 = new Color();
@@ -51,47 +52,55 @@ var colorObject5 = new Color();
 
 
 class Palette {
-  constructor({colorObject1}, {colorObject2}, {colorObject3}, {colorObject4}, {colorObject5}) {
-    this.box1 = colorObject1;
-    this.box2 = colorObject2;
-    this.box3 = colorObject3;
-    this.box4 = colorObject4;
-    this.box5 = colorObject5;
+  constructor() {
+    // this.box1 = colorObject1;
+    // this.box2 = colorObject2;
+    // this.box3 = colorObject3;
+    // this.box4 = colorObject4;
+    // this.box5 = colorObject5;
+    this.boxes = [new Color(), new Color(), new Color(), new Color(), new Color()];
+    //
     // this.colors = []; //will need to push or unshift into this
     //the divs on the html boxes would display the elements of the this.colors array
     this.id = Date.now();
   }
-
-
     //FOR NEXT TIME: 🔥
-
-  replaceColor(){
     //can used to with the "New Palette"  button to replace box1/box2/etc if not locked (!box1.locked)
     //if (!color.locked)
     //then change color.locked to true
-  }
-  lockColor() {
+    // when someone clicks new palette, box1.hex is reassigned to a new hex code --> use generate random hex function
+      // *** after lock function **** if box.1 locked === false, reassign box.1 hex
+      // else if box.1 locked === true, do nothing
+}
 
-    //we can access the hex code of a box color by dot notation box1.hex -> 'string'
-        //when replacing Colors with new Colors does it need to replace the WHOLE object or just the hex?
-        //and does that need to be in this function
-        //replace colors
-    //we can access the locked status of a box color by dot notation box1.locked -> boolean
+function replaceColor(test) {
+  var test = new Palette();
+  for (var i = 0; i < test.boxes.length; i++) {
+    // if statement to check if locked
+    colorBoxes[i].style.backgroundColor = test.boxes[i].hex
+  } return test.boxes
+}
 
-    //user should be able to click lock icon to 'save' the color displayed at that index number
-    //palette.lockColor() in our event listener?
+lockColor() {
+  //we can access the hex code of a box color by dot notation box1.hex -> 'string'
+      //when replacing Colors with new Colors does it need to replace the WHOLE object or just the hex?
+      //and does that need to be in this function
+      //replace colors
+  //we can access the locked status of a box color by dot notation box1.locked -> boolean
 
-  }
+  //user should be able to click lock icon to 'save' the color displayed at that index number
+  //palette.lockColor() in our event listener?
 }
 
 //event listeners 👇
-// newPaletteButton.addEventListener('click', -------)
+
+newPaletteButton.addEventListener('click', replaceColor)
 
 window.addEventListener('load', instantiatePalette);
 
 function instantiatePalette(){
-  var currentPalette = new Palette ({colorObject1}, {colorObject2}, {colorObject3}, {colorObject4}, {colorObject5});
-  console.log(currentPalette);
+  var currentPalette = new Palette (colorObject1, colorObject2, colorObject3, colorObject4, colorObject5);
+  // console.log(currentPalette);
 }
 
 
