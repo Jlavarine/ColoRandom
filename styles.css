@@ -5,13 +5,15 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 800px;
   background-size: cover;
+  overflow: hidden;
 }
 
 .color-random {
   display: flex;
   width: 73%;
-  height: 740px;
+
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
@@ -20,6 +22,9 @@ body {
 .saved-palettes {
   width: 27%;
   border-left: solid black 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
 
 .palette-actions {
@@ -46,6 +51,27 @@ body {
 .color-format {
   height: 180px;
   width: 180px;
+  border: black solid 5px;
+}
+
+.color-1 {
+  background-color: #FFFC31;
+}
+
+.color-2 {
+  background-color: #5C415D;
+}
+
+.color-3 {
+  background-color: #F6F7EB;
+}
+
+.color-4 {
+  background-color: #E94F37;
+}
+
+.color-5 {
+  background-color: #393E41;
 }
 
 .hex-and-lock {
@@ -56,6 +82,8 @@ body {
   align-items: center;
   margin: -20px;
   padding-top: 5px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 section {
 /* border: blue solid 2px; */
