@@ -35,8 +35,9 @@ var colorBox4 = document.querySelector('.color-4');
 var colorBox5 = document.querySelector('.color-5');
 var colorBoxes = document.querySelectorAll('.color-format');
 var hexCodes = document.querySelectorAll('.hex-code');
-var savePaletteButton = document.querySelector('.save-palette')
-var savedPalettes = document.querySelector('.display-saved-palettes')
+var savePaletteButton = document.querySelector('.save-palette');
+var savedPalettesSection = document.querySelector('.display-saved-palettes');
+var miniPalette = document.querySelectorAll('.mini');
 var currentPalette;
 
 var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -60,7 +61,9 @@ function loadPageColors() {
 
 function savePalette() {
   savedPalettes.push(currentPalette)
-  loadPageColors()
+  loadPageColors();
+  console.log(savedPalettes)
+  renderSavedPalette();
   // dispplaySavedPalette function invoked here
   // have saved pallets .locked all changed to one value
 };
@@ -72,21 +75,24 @@ function show(element) {
 function hide(element) {
   element.classList.add('hidden')
 };
-// function renderSavedPalette() {
-//   for(var i = 0; i < savedPalettes.length; i++) {
-//     savedPalettes.innerHTML += `<div></div><div></div><div></div><div></div><div></div><div></div>`
-//
-//
-//
-//
-//     `
-//     <section class="fruit">
-//       <h2>${fruits[i].name}</h2>
-//       <img src=${fruits[i].img} />
-//       <button id=${fruits[i].id}>Lick</button>
-//     </section>`
-//   }
-// }
+
+function renderSavedPalette() {
+  // show(miniPalette)
+  // savedPalettesSection.innerHTML = ''
+  for(var i = 0; i < savedPalettes.length; i++) {
+    miniPalette[i].style.backgroundColor = savedPalettes[i].boxes[0].hex;
+    miniPalette[i].style.backgroundColor = savedPalettes[i].boxes[1].hex;
+    miniPalette[i].style.backgroundColor = savedPalettes[i].boxes[2].hex;
+    miniPalette[i].style.backgroundColor = savedPalettes[i].boxes[3].hex;
+    miniPalette[i].style.backgroundColor = savedPalettes[i].boxes[4].hex;
+    // colorBoxes[i].style.backgroundColor = savedPalettes[i].boxes[i].hex;
+  }
+}
+
+// we want the render to look at our savedPalettes array and then for the length of the array
+// we want that many mini palettes displayed. with correct colors
+
+
 
 // function displaySavedPalette() {
 //   // savedPalettes (array) --to render in the display-saved-palettes section of the html
