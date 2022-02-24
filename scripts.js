@@ -26,7 +26,7 @@ var colorBox4 = document.querySelector('.color-4');
 var colorBox5 = document.querySelector('.color-5');
 var colorBoxes = document.querySelectorAll('.color-format');
 var hexCodes = document.querySelectorAll('.hex-code');
-var initialPalette;
+var currentPalette;
 
 var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 var savedPalettes = []; // will hold objects
@@ -37,22 +37,32 @@ window.addEventListener('load', loadPageColors);
 
 // functions and event handlers 👇
 function loadPageColors() {
-  initialPalette = new Palette();
-  for (var i = 0; i < initialPalette.boxes.length; i++) {
-    colorBoxes[i].style.backgroundColor = initialPalette.boxes[i].hex;
-    hexCodes[i].innerText = initialPalette.boxes[i].hex;
+  currentPalette = new Palette();
+  for (var i = 0; i < currentPalette.boxes.length; i++) {
+    colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
+    hexCodes[i].innerText = currentPalette.boxes[i].hex;
  }
 }
 
 function displayNewColors() {
-  for (var i = 0; i < initialPalette.boxes.length; i++) {
-    if (!initialPalette.boxes[i].locked) {
-      initialPalette.boxes[i].hex = `#${generateHexCode()}`;
-      colorBoxes[i].style.backgroundColor = initialPalette.boxes[i].hex;
-      hexCodes[i].innerText = initialPalette.boxes[i].hex;
+  for (var i = 0; i < currentPalette.boxes.length; i++) {
+    if (!currentPalette.boxes[i].locked) {
+      currentPalette.boxes[i].hex = `#${generateHexCode()}`;
+      colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
+      hexCodes[i].innerText = currentPalette.boxes[i].hex;
     }
   }
 }
+
+// function savePalette
+// document query selector for save palette button
+// store currentPalette in savedPalette array using .push
+  // push by targetting ID
+// display small version of color boxes in side section and add trash can
+  // mini palette class (similar to saveRomCom)
+// instantiate a new palette to be displayed as current/in-progress palette
+// savePalette & changeDisplay -- attached to eventListener
+
 
 function generateHexCode() {
   var hex = '';
