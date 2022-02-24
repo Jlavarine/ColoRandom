@@ -25,32 +25,33 @@ var colorBox3 = document.querySelector('.color-3');
 var colorBox4 = document.querySelector('.color-4');
 var colorBox5 = document.querySelector('.color-5');
 var colorBoxes = document.querySelectorAll('.color-format');
-var test;
+var hexCodes = document.querySelectorAll('.hex-code');
+var initialPalette;
 
 var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 var savedPalettes = []; // will hold objects
 
 //event listeners 👇
-newPaletteButton.addEventListener('click', replaceColor)
-window.addEventListener('load', displayNewColors);
+newPaletteButton.addEventListener('click', displayNewColors)
+window.addEventListener('load', loadPageColors);
 
 // functions and event handlers 👇
-function displayNewColors() {
-  test = new Palette();
-  for (var i = 0; i < test.boxes.length; i++) {
-    if (test.boxes[i].locked === false) {
-      colorBoxes[i].style.backgroundColor = test.boxes[i].hex
-    }
-  } return test
+function loadPageColors() {
+  initialPalette = new Palette();
+  for (var i = 0; i < initialPalette.boxes.length; i++) {
+    colorBoxes[i].style.backgroundColor = initialPalette.boxes[i].hex;
+    hexCodes[i].innerText = initialPalette.boxes[i].hex;
+ }
 }
 
-function replaceColor() {
-    for (var i = 0; i < test.boxes.length; i++) {
-      if (test.boxes[i].locked === false) {
-        test.boxes[i].hex = `#${generateHexCode()}`;
-        colorBoxes[i].style.backgroundColor = test.boxes[i].hex
-      }
+function displayNewColors() {
+  for (var i = 0; i < initialPalette.boxes.length; i++) {
+    if (!initialPalette.boxes[i].locked) {
+      initialPalette.boxes[i].hex = `#${generateHexCode()}`;
+      colorBoxes[i].style.backgroundColor = initialPalette.boxes[i].hex;
+      hexCodes[i].innerText = initialPalette.boxes[i].hex;
     }
+  }
 }
 
 function generateHexCode() {
@@ -63,7 +64,7 @@ function generateHexCode() {
   randomHexElements.push(getRandomElement(hexData));
   randomHexElements.push(getRandomElement(hexData));
   hex = randomHexElements.join('');
-  return hex
+  return hex;
 }
 
 function getRandomElement(array) {
