@@ -15,6 +15,15 @@ class Palette {
   lockColor(i) {
     this.boxes[i].locked = true;
   }
+  displayNewColors() {
+    for (var i = 0; i < this.boxes.length; i++) {
+      if (!this.boxes[i].locked) {
+        this.boxes[i].hex = `#${generateHexCode()}`;
+        colorBoxes[i].style.backgroundColor = this.boxes[i].hex;
+        hexCodes[i].innerText = this.boxes[i].hex;
+      }
+    }
+  }
 }
 
 //global variables 👇
@@ -26,14 +35,19 @@ var colorBox4 = document.querySelector('.color-4');
 var colorBox5 = document.querySelector('.color-5');
 var colorBoxes = document.querySelectorAll('.color-format');
 var hexCodes = document.querySelectorAll('.hex-code');
+var savePaletteButton = document.querySelector('.save-palette')
+var savedPalettes = document.querySelector('.display-saved-palettes')
 var currentPalette;
 
 var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 var savedPalettes = []; // will hold objects
 
 //event listeners 👇
-newPaletteButton.addEventListener('click', displayNewColors)
 window.addEventListener('load', loadPageColors);
+newPaletteButton.addEventListener('click', function(){
+  currentPalette.displayNewColors()
+})
+savePaletteButton.addEventListener('click', savePalette)
 
 // functions and event handlers 👇
 function loadPageColors() {
@@ -41,28 +55,46 @@ function loadPageColors() {
   for (var i = 0; i < currentPalette.boxes.length; i++) {
     colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
     hexCodes[i].innerText = currentPalette.boxes[i].hex;
- }
-}
+ };
+};
 
-function displayNewColors() {
-  for (var i = 0; i < currentPalette.boxes.length; i++) {
-    if (!currentPalette.boxes[i].locked) {
-      currentPalette.boxes[i].hex = `#${generateHexCode()}`;
-      colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
-      hexCodes[i].innerText = currentPalette.boxes[i].hex;
-    }
-  }
-}
+function savePalette() {
+  savedPalettes.push(currentPalette)
+  loadPageColors()
+  // dispplaySavedPalette function invoked here
+  // have saved pallets .locked all changed to one value
+};
 
-// function savePalette
-// document query selector for save palette button
-// store currentPalette in savedPalette array using .push
-  // push by targetting ID
-// display small version of color boxes in side section and add trash can
-  // mini palette class (similar to saveRomCom)
-// instantiate a new palette to be displayed as current/in-progress palette
-// savePalette & changeDisplay -- attached to eventListener
+function show(element) {
+  element.classList.remove('hidden')
+};
 
+function hide(element) {
+  element.classList.add('hidden')
+};
+// function renderSavedPalette() {
+//   for(var i = 0; i < savedPalettes.length; i++) {
+//     savedPalettes.innerHTML += `<div></div><div></div><div></div><div></div><div></div><div></div>`
+//
+//
+//
+//
+//     `
+//     <section class="fruit">
+//       <h2>${fruits[i].name}</h2>
+//       <img src=${fruits[i].img} />
+//       <button id=${fruits[i].id}>Lick</button>
+//     </section>`
+//   }
+// }
+
+// function displaySavedPalette() {
+//   // savedPalettes (array) --to render in the display-saved-palettes section of the html
+//   //
+// };
+//   // push by targetting ID
+// // display small version of color boxes in side section and add trash can
+//   // mini palette class (similar to saveRomCom)
 
 function generateHexCode() {
   var hex = '';
