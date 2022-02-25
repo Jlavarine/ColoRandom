@@ -12,16 +12,6 @@ var savePaletteButton = document.querySelector('.save-palette');
 var savedPalettesSection = document.querySelector('.display-saved-palettes');
 var miniPaletteSection = document.querySelector('.mini-palette');
 var mini = document.querySelectorAll('.mini');
-var unlockedBox1 = document.querySelector('.unlocked-1');
-var unlockedBox2 = document.querySelector('.unlocked-2');
-var unlockedBox3 = document.querySelector('.unlocked-3');
-var unlockedBox4 = document.querySelector('.unlocked-4');
-var unlockedBox5 = document.querySelector('.unlocked-5');
-var lockedBox1 = document.querySelector('.locked-1');
-var lockedBox2 = document.querySelector('.locked-2');
-var lockedBox3 = document.querySelector('.locked-3');
-var lockedBox4 = document.querySelector('.locked-4');
-var lockedBox5 = document.querySelector('.locked-5');
 var trashcan = document.querySelector('.trashcan');
 
 var currentPalette;
@@ -36,34 +26,14 @@ savePaletteButton.addEventListener('click', savePalette)
 
 //maybe add function to keep event listener less BEEFY
 colorBoxSection.addEventListener('click', function(event) {
-  if (event.target.className === 'color-1 color-format') {
-    currentPalette.lockColor(0);
-    toggleHiddenClass(unlockedBox1);
-    toggleHiddenClass(lockedBox1);
-  } else if(event.target.className === 'color-2 color-format') {
-    currentPalette.lockColor(1);
-    toggleHiddenClass(unlockedBox2);
-    toggleHiddenClass(lockedBox2);
-  } else if(event.target.className === 'color-3 color-format') {
-    currentPalette.lockColor(2);
-    toggleHiddenClass(unlockedBox3);
-    toggleHiddenClass(lockedBox3);
-  } else if(event.target.className === 'color-4 color-format') {
-    currentPalette.lockColor(3);
-    toggleHiddenClass(unlockedBox4);
-    toggleHiddenClass(lockedBox4);
-  } else if(event.target.className === 'color-5 color-format') {
-    currentPalette.lockColor(4);
-    toggleHiddenClass(unlockedBox5);
-    toggleHiddenClass(lockedBox5);
-  }
+var string = event.target.className
+var numberString = string.slice(6,7)
+var numberValue = parseInt(numberString)
+currentPalette.lockColor(numberValue - 1);
+toggleHiddenClass(document.querySelector(`.unlocked-${numberValue}`))
+toggleHiddenClass(document.querySelector(`.locked-${numberValue}`))
 });
-
 // functions👇
-
-
-
-
 function loadPageColors() {
   currentPalette = new Palette();
   for (var i = 0; i < currentPalette.boxes.length; i++) {
@@ -78,8 +48,6 @@ function displayColors(){
     hexCodes[i].innerText = currentPalette.boxes[i].hex;
   }
 }
-
-
 
 function savePalette() {
   savedPalettes.push(currentPalette)
@@ -110,16 +78,10 @@ function toggleHiddenClass(element) {
 }
 
 function unlockAllLocks() {
-  show(unlockedBox1);
-  hide(lockedBox1);
-  show(unlockedBox2);
-  hide(lockedBox2);
-  show(unlockedBox3);
-  hide(lockedBox3);
-  show(unlockedBox4);
-  hide(lockedBox4);
-  show(unlockedBox5);
-  hide(lockedBox5);
+  for(i = 1; i < 6; i++) {
+    show(document.querySelector(`.unlocked-${i}`));
+    hide(document.querySelector(`.locked-${i}`));
+  }
 };
 
 function renderSavedPalette() {
