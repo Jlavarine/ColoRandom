@@ -1,42 +1,5 @@
-//classes 👇
-class Color {
-  constructor() {
-  this.hex = `#${generateHexCode()}`;
-  this.locked = false;
-};
-};
-
-class Palette {
-  constructor() {
-    this.boxes = [new Color(), new Color(), new Color(), new Color(), new Color()];
-    this.id = Date.now();
-  }
-
-  lockColor(i) {
-    if (this.boxes[i].locked) {
-      this.boxes[i].locked = false;
-    } else if (!this.boxes[i].locked)
-    this.boxes[i].locked = true;
-  }
-
-  displayNewColors() {
-    for (var i = 0; i < this.boxes.length; i++) {
-      if (!this.boxes[i].locked) {
-        this.boxes[i].hex = `#${generateHexCode()}`;
-        colorBoxes[i].style.backgroundColor = this.boxes[i].hex;
-        hexCodes[i].innerText = this.boxes[i].hex;
-      };
-    };
-  };
-};
-
 //global variables 👇
 var newPaletteButton = document.querySelector('.new-palette');
-// var colorBox1 = document.querySelector('.box-1');
-// var colorBox2 = document.querySelector('.box-2');
-// var colorBox3 = document.querySelector('.box-3');
-// var colorBox4 = document.querySelector('.box-4');
-// var colorBox5 = document.querySelector('.box-5');
 var colorBox1 = document.querySelector('.color-1');
 var colorBox2 = document.querySelector('.color-2');
 var colorBox3 = document.querySelector('.color-3');
@@ -59,12 +22,10 @@ var lockedBox2 = document.querySelector('.locked-2');
 var lockedBox3 = document.querySelector('.locked-3');
 var lockedBox4 = document.querySelector('.locked-4');
 var lockedBox5 = document.querySelector('.locked-5');
-
+var trashcan = document.querySelector('.trashcan');
 
 var currentPalette;
-
-var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-var savedPalettes = []; // will hold objects
+var savedPalettes = [];
 
 //event listeners 👇
 window.addEventListener('load', loadPageColors);
@@ -72,8 +33,9 @@ newPaletteButton.addEventListener('click', function(){
   currentPalette.displayNewColors()
 })
 savePaletteButton.addEventListener('click', savePalette)
+
+//maybe add function to keep event listener less BEEFY
 colorBoxSection.addEventListener('click', function(event) {
-  console.log(event.target)
   if (event.target.className === 'color-1 color-format') {
     currentPalette.lockColor(0);
     toggleHiddenClass(unlockedBox1);
@@ -96,7 +58,12 @@ colorBoxSection.addEventListener('click', function(event) {
     toggleHiddenClass(lockedBox5);
   }
 });
+
 // functions👇
+
+
+
+
 function loadPageColors() {
   currentPalette = new Palette();
   for (var i = 0; i < currentPalette.boxes.length; i++) {
@@ -105,12 +72,29 @@ function loadPageColors() {
  };
 };
 
+function displayColors(){
+  for (var i = 0; i < currentPalette.boxes.length; i++) {
+    colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
+    hexCodes[i].innerText = currentPalette.boxes[i].hex;
+  }
+}
+
+
+
 function savePalette() {
   savedPalettes.push(currentPalette)
   loadPageColors();
-  console.log(savedPalettes)
   renderSavedPalette();
   unlockAllLocks()
+};
+
+function deleteSavedPalette(id) {
+  for (var i = 0; i < savedPalettes.length; i++) {
+    if (id == savedPalettes[i].id) {
+      savedPalettes.splice(i, 1);
+    };
+    renderSavedPalette();
+  };
 };
 
 function show(element) {
@@ -153,12 +137,13 @@ function renderSavedPalette() {
     </div>
     <div class="color-5-m mini" style="background-color:${savedPalettes[i].boxes[4].hex};">
     </div>
-    <img src="assets/trashcan-small.png" alt="Small Trashcan Icon">
+    <img class="trashcan" id="${savedPalettes[i].id}" onClick="deleteSavedPalette(this.id)" src="assets/trashcan-small.png" alt="Small Trashcan Icon">
   </section>`
   };
 };
 
 function generateHexCode() {
+  var hexData = ['A','B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   var hex = '';
   var randomHexElements = [];
   randomHexElements.push(getRandomElement(hexData));
