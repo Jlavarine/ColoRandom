@@ -1,10 +1,5 @@
 //global variables 👇
 var newPaletteButton = document.querySelector('.new-palette');
-var colorBox1 = document.querySelector('.color-1');
-var colorBox2 = document.querySelector('.color-2');
-var colorBox3 = document.querySelector('.color-3');
-var colorBox4 = document.querySelector('.color-4');
-var colorBox5 = document.querySelector('.color-5');
 var colorBoxSection = document.querySelector('.color-boxes');
 var colorBoxes = document.querySelectorAll('.color-format');
 var hexCodes = document.querySelectorAll('.hex-code');
@@ -13,25 +8,21 @@ var savedPalettesSection = document.querySelector('.display-saved-palettes');
 var miniPaletteSection = document.querySelector('.mini-palette');
 var mini = document.querySelectorAll('.mini');
 var trashcan = document.querySelector('.trashcan');
-
 var currentPalette;
 var savedPalettes = [];
-
 //event listeners 👇
 window.addEventListener('load', loadPageColors);
 newPaletteButton.addEventListener('click', function(){
   currentPalette.displayNewColors()
-})
-savePaletteButton.addEventListener('click', savePalette)
-
-//maybe add function to keep event listener less BEEFY
+});
+savePaletteButton.addEventListener('click', savePalette);
 colorBoxSection.addEventListener('click', function(event) {
-var string = event.target.className
-var numberString = string.slice(6,7)
-var numberValue = parseInt(numberString)
-currentPalette.lockColor(numberValue - 1);
-toggleHiddenClass(document.querySelector(`.unlocked-${numberValue}`))
-toggleHiddenClass(document.querySelector(`.locked-${numberValue}`))
+  var string = event.target.className;
+  var numberString = string.slice(6,7);
+  var numberValue = parseInt(numberString);
+  currentPalette.lockColor(numberValue - 1);
+  toggleHiddenClass(document.querySelector(`.unlocked-${numberValue}`));
+  toggleHiddenClass(document.querySelector(`.locked-${numberValue}`));
 });
 // functions👇
 function loadPageColors() {
@@ -42,18 +33,18 @@ function loadPageColors() {
  };
 };
 
-function displayColors(){
+function displayColors() {
   for (var i = 0; i < currentPalette.boxes.length; i++) {
     colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
     hexCodes[i].innerText = currentPalette.boxes[i].hex;
-  }
-}
+  };
+};
 
 function savePalette() {
-  savedPalettes.push(currentPalette)
+  savedPalettes.push(currentPalette);
   loadPageColors();
   renderSavedPalette();
-  unlockAllLocks()
+  unlockAllLocks();
 };
 
 function deleteSavedPalette(id) {
@@ -81,12 +72,12 @@ function unlockAllLocks() {
   for(i = 1; i < 6; i++) {
     show(document.querySelector(`.unlocked-${i}`));
     hide(document.querySelector(`.locked-${i}`));
-  }
+  };
 };
 
 function renderSavedPalette() {
-  show(miniPaletteSection)
-  savedPalettesSection.innerHTML = ''
+  show(miniPaletteSection);
+  savedPalettesSection.innerHTML = '';
   for(var i = 0; i < savedPalettes.length; i++) {
   savedPalettesSection.innerHTML += `<section class="mini-palette">
     <div class="color-1-m mini" style="background-color:${savedPalettes[i].boxes[0].hex};">
@@ -100,7 +91,7 @@ function renderSavedPalette() {
     <div class="color-5-m mini" style="background-color:${savedPalettes[i].boxes[4].hex};">
     </div>
     <img class="trashcan" id="${savedPalettes[i].id}" onClick="deleteSavedPalette(this.id)" src="assets/trashcan-small.png" alt="Small Trashcan Icon">
-  </section>`
+  </section>`;
   };
 };
 
