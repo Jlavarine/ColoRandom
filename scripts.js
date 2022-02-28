@@ -30,7 +30,7 @@ function loadPageColors() {
   for (var i = 0; i < currentPalette.boxes.length; i++) {
     colorBoxes[i].style.backgroundColor = currentPalette.boxes[i].hex;
     hexCodes[i].innerText = currentPalette.boxes[i].hex;
- };
+  };
 };
 
 function displayColors() {
@@ -66,7 +66,7 @@ function hide(element) {
 
 function toggleHiddenClass(element) {
   element.classList.toggle('hidden');
-}
+};
 
 function unlockAllLocks() {
   for(i = 1; i < 6; i++) {
@@ -80,15 +80,15 @@ function renderSavedPalette() {
   savedPalettesSection.innerHTML = '';
   for(var i = 0; i < savedPalettes.length; i++) {
   savedPalettesSection.innerHTML += `<section class="mini-palette">
-    <div class="color-1-m mini" style="background-color:${savedPalettes[i].boxes[0].hex};">
+    <div class="mini" style="background-color:${savedPalettes[i].boxes[0].hex};">
     </div>
-    <div class="color-2-m mini" style="background-color:${savedPalettes[i].boxes[1].hex};">
+    <div class="mini" style="background-color:${savedPalettes[i].boxes[1].hex};">
     </div>
-    <div class="color-3-m mini" style="background-color:${savedPalettes[i].boxes[2].hex};">
+    <div class="mini" style="background-color:${savedPalettes[i].boxes[2].hex};">
     </div>
-    <div class="color-4-m mini" style="background-color:${savedPalettes[i].boxes[3].hex};">
+    <div class="mini" style="background-color:${savedPalettes[i].boxes[3].hex};">
     </div>
-    <div class="color-5-m mini" style="background-color:${savedPalettes[i].boxes[4].hex};">
+    <div class="mini" style="background-color:${savedPalettes[i].boxes[4].hex};">
     </div>
     <img class="trashcan" id="${savedPalettes[i].id}" onClick="deleteSavedPalette(this.id)" src="assets/trashcan-small.png" alt="Small Trashcan Icon">
   </section>`;
